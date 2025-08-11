@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { VideoUpload } from '@/components/VideoUpload';
 import { LearningInterface } from '@/components/LearningInterface';
+import { UseCaseGallery } from '@/components/UseCaseGallery';
 
 export default function Home() {
   const [currentVideo, setCurrentVideo] = useState<any>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showUseCases, setShowUseCases] = useState(false);
 
   const handleVideoUpload = async (videoData: any) => {
     setIsProcessing(true);
@@ -41,6 +43,10 @@ export default function Home() {
     return <LearningInterface video={currentVideo} />;
   }
 
+  if (showUseCases) {
+    return <UseCaseGallery onBack={() => setShowUseCases(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Navigation */}
@@ -53,7 +59,12 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-6">
           <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-          <a href="#use-cases" className="text-gray-600 hover:text-gray-900 transition-colors">Use Cases</a>
+          <button 
+            onClick={() => setShowUseCases(true)}
+            className="text-gray-600 hover:text-gray-900 transition-colors"
+          >
+            Use Cases
+          </button>
           <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
             Get Started
           </button>
@@ -145,70 +156,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Use Case Gallery Section */}
-        <div id="use-cases" className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+        {/* Use Case Preview Section */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
             See Scrolla in Action
           </h2>
-          <p className="text-lg text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-            Discover how students and educators are transforming their learning experience
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Explore interactive demonstrations of how Scrolla transforms real educational videos into engaging learning experiences
           </p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Use Case 1 */}
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center">
-                <div className="text-center">
-                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  <p className="text-sm text-gray-500">Video Preview</p>
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">3Blue1Brown - Neural Networks</h3>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                A student uses Scrolla to break down complex neural network concepts from 3Blue1Brown's educational videos, creating interactive study materials.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">Mathematics • Machine Learning</span>
-                <a 
-                  href="https://www.youtube.com/watch?time_continue=1&v=aircAruvnKk&embeds_referring_euri=https%3A%2F%2Fmemories.ai%2F&embeds_referring_origin=https%3A%2F%2Fmemories.ai&source_ve_path=MjM4NTE" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-600 text-sm font-medium"
-                >
-                  Watch Original →
-                </a>
-              </div>
-            </div>
-
-            {/* Use Case 2 */}
-            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center">
-                <div className="text-center">
-                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  <p className="text-sm text-gray-500">Video Preview</p>
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">MIT OpenCourseWare - Physics</h3>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                An educator transforms MIT's physics lectures into interactive learning modules with AI-generated quizzes and personalized study paths.
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-500">Physics • Higher Education</span>
-                <a 
-                  href="https://www.youtube.com/watch?v=nIoOv6lWYnk&embeds_referring_euri=https%3A%2F%2Fmemories.ai%2F&embeds_referring_origin=https%3A%2F%2Fmemories.ai&source_ve_path=MjM4NTE" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-600 text-sm font-medium"
-                >
-                  Watch Original →
-                </a>
-              </div>
-            </div>
-          </div>
+          <button 
+            onClick={() => setShowUseCases(true)}
+            className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all"
+          >
+            Explore Use Cases
+          </button>
         </div>
       </div>
     </div>
