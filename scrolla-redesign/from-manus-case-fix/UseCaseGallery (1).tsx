@@ -155,7 +155,7 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
     {
       id: 1,
       type: 'ai',
-      content: `Hi! I'm your AI tutor for "${useCaseDemos[0].title}". I've analyzed the video content and I'm ready to help you understand any concepts. What would you like to know?`,
+      content: `Hi! I'm your AI tutor for "${selectedDemo.title}". I've analyzed the video content and I'm ready to help you understand any concepts. What would you like to know?`,
       timestamp: new Date().toLocaleTimeString()
     }
   ]);
@@ -705,3 +705,4 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
     </div>
   );
 }
+
