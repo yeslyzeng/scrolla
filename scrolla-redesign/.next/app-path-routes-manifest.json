@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
   "/favicon.ico/route": "/favicon.ico",
-  "/page": "/",
-  "/features/knowledge-quest/page": "/features/knowledge-quest",
-  "/features/smart-notes/page": "/features/smart-notes",
   "/features/visual-search/page": "/features/visual-search",
+  "/features/smart-notes/page": "/features/smart-notes",
+  "/features/knowledge-quest/page": "/features/knowledge-quest",
+  "/page": "/",
   "/features/ai-tutor/page": "/features/ai-tutor"
 }

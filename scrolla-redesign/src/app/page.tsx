@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { VideoUpload } from '@/components/VideoUpload';
-import { LearningInterface } from '@/components/LearningInterface';
-import { UseCaseGallery } from '@/components/UseCaseGallery';
+import { VideoUpload } from '../components/VideoUpload';
+import { LearningInterface } from '../components/LearningInterface';
+import UseCaseGallery from '../components/UseCaseGallery';
 
 export default function Home() {
   const [currentVideo, setCurrentVideo] = useState<any>(null);
