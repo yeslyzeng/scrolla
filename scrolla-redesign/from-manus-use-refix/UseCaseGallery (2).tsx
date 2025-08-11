@@ -190,30 +190,21 @@ const useCaseDemos: UseCaseDemo[] = [
       ],
       quiz: [
         {
-          question: 'What is most important for good sushi?',
-          options: ['Expensive ingredients', 'Fresh, high-quality fish', 'Complex techniques', 'Beautiful plating'],
+          question: 'What type of rice is best for sushi?',
+          options: ['Long-grain rice', 'Short-grain Japanese rice', 'Brown rice', 'Wild rice'],
           correct: 1,
-          explanation: 'Fresh, high-quality fish is the foundation of good sushi. Without fresh fish, even perfect technique cannot create great sushi.',
-          videoRef: '3:45'
-        },
-        {
-          question: 'How should sushi rice be prepared?',
-          options: ['With soy sauce', 'With rice vinegar, sugar, and salt', 'Plain white rice', 'With wasabi mixed in'],
-          correct: 1,
-          explanation: 'Sushi rice is seasoned with a mixture of rice vinegar, sugar, and salt while the rice is still warm to achieve the proper flavor and texture.',
-          videoRef: '1:20'
+          explanation: 'Short-grain Japanese rice has the right texture and stickiness needed for sushi.',
+          videoRef: '1:30'
         }
       ],
       chat: [
-        { question: 'How do I make sushi rice?', answer: 'Start with short-grain rice, rinse thoroughly until water runs clear, cook with the right water ratio (1:1.1), then season with rice vinegar, sugar, and salt while warm.' },
-        { question: 'What fish is best for beginners?', answer: 'For beginners, I recommend starting with salmon or tuna as they are easier to work with and widely available in sashimi grade from good fish markets.' },
-        { question: 'Do I need special equipment?', answer: 'You\'ll need a sharp knife, bamboo mat for rolling, and ideally a wooden bowl for mixing rice. A rice cooker helps but isn\'t essential.' }
+        { question: 'How do I prepare sushi rice?', answer: 'Cook short-grain Japanese rice, then season it with a mixture of rice vinegar, sugar, and salt while it\'s still warm. Let it cool to room temperature before using.' }
       ]
     }
   }
 ];
 
-export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
+export default function UseCaseGallery() {
   const [selectedDemo, setSelectedDemo] = useState<UseCaseDemo>(useCaseDemos[0]);
   const [activeFeature, setActiveFeature] = useState<'notes' | 'transcription' | 'search' | 'quiz' | 'chat'>('notes');
   
@@ -225,24 +216,11 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
   const [completedQuestions, setCompletedQuestions] = useState<number[]>([]);
 
   // Chat state
-  const [chatMessages, setChatMessages] = useState<{ id: number; type: 'user' | 'ai'; content: string; timestamp: string }[]>([
-    {
-      id: 1,
-      type: 'ai',
-      content: `Hi! I'm your AI tutor for "${useCaseDemos[0].title}". I've analyzed the video content and I'm ready to help you understand any concepts. What would you like to know?`,
-      timestamp: new Date().toLocaleTimeString()
-    }
-  ]);
+  const [chatMessages, setChatMessages] = useState<{ type: 'user' | 'ai'; content: string; timestamp: string }[]>([]);
   const [chatInput, setChatInput] = useState('');
 
-  // Video player reference (simulated)
   const jumpToTimestamp = (seconds: number) => {
-    // In a real implementation, this would control the video player
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    const timestamp = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    alert(`Jumping to ${timestamp} in the video player`);
-    // You would implement actual video seeking here
+    alert(`Jumping to ${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, '0')} in video`);
   };
 
   const handleQuizAnswer = (answerIndex: number) => {
@@ -277,14 +255,10 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
   const handleChatSend = () => {
     if (chatInput.trim()) {
       const userMessage = {
-        id: Date.now(),
         type: 'user' as const,
         content: chatInput,
         timestamp: new Date().toLocaleTimeString()
       };
-      
-      setChatMessages(prev => [...prev, userMessage]);
-      setChatInput('');
       
       // Find relevant answer from predefined responses
       const relevantResponse = selectedDemo.features.chat.find(item => 
@@ -292,102 +266,58 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
         item.question.toLowerCase().includes(chatInput.toLowerCase().split(' ')[0])
       );
       
-      setTimeout(() => {
-        const aiMessage = {
-          id: Date.now() + 1,
-          type: 'ai' as const,
-          content: relevantResponse ? relevantResponse.answer : `That's a great question about ${selectedDemo.title}! Based on the video content, I can help explain this concept. The key points to understand are the fundamental principles shown in the demonstration.`,
-          timestamp: new Date().toLocaleTimeString()
-        };
-        setChatMessages(prev => [...prev, aiMessage]);
-      }, 1000);
+      const aiMessage = {
+        type: 'ai' as const,
+        content: relevantResponse?.answer || `That's a great question about "${chatInput}". Based on the video content, I can help you understand this concept better. The video covers this topic around the ${selectedDemo.features.notes[0]?.timestamp} mark.`,
+        timestamp: new Date().toLocaleTimeString()
+      };
+      
+      setChatMessages(prev => [...prev, userMessage, aiMessage]);
+      setChatInput('');
     }
   };
 
-  // Reset states when demo changes
-  const handleDemoChange = (demo: UseCaseDemo) => {
-    setSelectedDemo(demo);
-    setActiveFeature('notes');
-    setCurrentQuizIndex(0);
-    setSelectedAnswer(null);
-    setShowExplanation(false);
-    setQuizScore(0);
-    setCompletedQuestions([]);
-    setChatMessages([
-      {
-        id: 1,
-        type: 'ai',
-        content: `Hi! I'm your AI tutor for "${demo.title}". I've analyzed the video content and I'm ready to help you understand any concepts. What would you like to know?`,
-        timestamp: new Date().toLocaleTimeString()
-      }
-    ]);
+  const clearChat = () => {
+    setChatMessages([]);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">Scrolla</span>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Interactive Use Case Gallery</h1>
+              <p className="text-gray-600 mt-2">Experience Scrolla's powerful features with real educational content. Try all the interactive features below!</p>
             </div>
-            <div className="flex items-center space-x-6">
-              <button
-                onClick={onBack}
-                className="text-gray-600 hover:text-gray-900 transition-colors flex items-center space-x-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                <span>Back to Home</span>
-              </button>
-            </div>
+            <button
+              onClick={() => window.history.back()}
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              Back to Home
+            </button>
           </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Interactive Use Case Gallery
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Experience Scrolla's powerful features with real educational content. Try all the interactive features below!
-          </p>
         </div>
       </div>
 
-      {/* Use Case Selector - Simplified without cover images */}
-      <div className="max-w-7xl mx-auto px-6 mb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Demo Selection */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {useCaseDemos.map((demo) => (
-            <button
+            <div
               key={demo.id}
-              onClick={() => handleDemoChange(demo)}
-              className={`text-left p-6 rounded-2xl border-2 transition-all ${
+              onClick={() => setSelectedDemo(demo)}
+              className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
                 selectedDemo.id === demo.id
-                  ? 'border-blue-500 bg-blue-50 shadow-lg'
-                  : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 bg-white hover:border-gray-300'
               }`}
             >
-              <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{demo.title}</h3>
-                  <p className="text-gray-600 mb-3">{demo.description}</p>
-                  <p className="text-sm font-medium text-blue-600">{demo.videoTitle}</p>
-                </div>
-              </div>
-            </button>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{demo.title}</h3>
+              <p className="text-gray-600 mb-3">{demo.description}</p>
+              <p className="text-sm text-blue-600 font-medium">{demo.videoTitle}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -419,25 +349,14 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
                 Video Preview
               </h3>
               <div className="aspect-video bg-gray-900 rounded-xl overflow-hidden max-w-4xl mx-auto">
-                {selectedDemo.id === 'neural-networks' ? (
-                  <iframe
-                    src="https://www.youtube.com/embed/aircAruvnKk?modestbranding=1&rel=0&showinfo=0"
-                    title="Neural Networks - 3Blue1Brown"
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : (
-                  <iframe
-                    src="https://www.youtube.com/embed/nIoOv6lWYnk?modestbranding=1&rel=0&showinfo=0"
-                    title="Sushi Making - Epicurious"
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                )}
+                <iframe
+                  src={`https://www.youtube.com/embed/${selectedDemo.embedId}?modestbranding=1&rel=0&showinfo=0`}
+                  title={selectedDemo.videoTitle}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
               </div>
               <div className="mt-4 flex items-center justify-between max-w-4xl mx-auto">
                 <p className="text-sm text-gray-600">
@@ -610,7 +529,7 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
                   
                   {/* Search Results */}
                   <div className="space-y-3">
-                    <h5 className="text-md font-semibold text-gray-900 mb-3">Search Results ({selectedDemo.features.search.length} found)</h5>
+                    <h5 className="text-md font-semibold text-gray-900 mb-3">Search Results (3 found)</h5>
                     {selectedDemo.features.search.map((result, index) => (
                       <div key={index} className="bg-white rounded-lg p-4 border border-purple-100 hover:border-purple-200 transition-colors">
                         <div className="flex items-start space-x-4">
@@ -648,35 +567,37 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
               </div>
             )}
 
-            {/* Smart Quiz - Fully Interactive */}
+            {/* Smart Quiz */}
             {activeFeature === 'quiz' && (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-semibold text-gray-900">Smart Quiz</h3>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-sm text-gray-600">
-                      Score: <span className="font-bold text-orange-600">{quizScore} points</span>
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Question {currentQuizIndex + 1} of {selectedDemo.features.quiz.length}
-                    </div>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-gray-900">Smart Quiz</h3>
+                    <p className="text-gray-600 mt-1">Test your understanding with interactive questions based on the video content</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-600">Score</p>
+                    <p className="text-2xl font-bold text-orange-500">{quizScore}</p>
                   </div>
                 </div>
                 
-                <div className="bg-white border border-gray-200 rounded-xl p-8">
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium">
-                        {selectedDemo.features.quiz[currentQuizIndex].videoRef}
+                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border border-orange-200">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        Question {currentQuizIndex + 1} of {selectedDemo.features.quiz.length}
                       </span>
-                      <div className="text-sm text-gray-500">
-                        +10 points for correct answer
-                      </div>
+                      <span className="text-sm text-gray-600">
+                        Video Reference: {selectedDemo.features.quiz[currentQuizIndex].videoRef}
+                      </span>
                     </div>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-6">
-                      {selectedDemo.features.quiz[currentQuizIndex].question}
-                    </h4>
+                    <div className="text-sm text-orange-600 font-medium">
+                      +10 points for correct answer
+                    </div>
                   </div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-6">
+                    {selectedDemo.features.quiz[currentQuizIndex].question}
+                  </h4>
 
                   <div className="space-y-3 mb-6">
                     {selectedDemo.features.quiz[currentQuizIndex].options.map((option, index) => (
@@ -752,39 +673,48 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
               </div>
             )}
 
-            {/* AI Tutor Chat - Fully Interactive */}
+            {/* AI Tutor Chat */}
             {activeFeature === 'chat' && (
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-semibold text-gray-900">AI Tutor Chat</h3>
+                  <div>
+                    <h3 className="text-2xl font-semibold text-gray-900">AI Tutor Chat</h3>
+                    <p className="text-gray-600 mt-1">Ask questions about the video content and get instant, contextual answers</p>
+                  </div>
                   <button
-                    onClick={() => setChatMessages([{
-                      id: 1,
-                      type: 'ai',
-                      content: `Hi! I'm your AI tutor for "${selectedDemo.title}". I've analyzed the video content and I'm ready to help you understand any concepts. What would you like to know?`,
-                      timestamp: new Date().toLocaleTimeString()
-                    }])}
-                    className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+                    onClick={clearChat}
+                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
                   >
                     Clear Chat
                   </button>
                 </div>
                 
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl border border-pink-200 overflow-hidden">
                   {/* Chat Messages */}
                   <div className="h-96 overflow-y-auto p-6 space-y-4">
-                    {chatMessages.map((message) => (
-                      <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
-                          message.type === 'user' 
-                            ? 'bg-pink-500 text-white' 
-                            : 'bg-gray-100 text-gray-900'
-                        }`}>
-                          <p className="text-sm">{message.content}</p>
-                          <div className="text-xs opacity-70 mt-1">{message.timestamp}</div>
-                        </div>
+                    {chatMessages.length === 0 ? (
+                      <div className="text-center text-gray-500 py-8">
+                        <svg className="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.959 8.959 0 01-4.906-1.456L3 21l2.544-5.094A8.959 8.959 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z" />
+                        </svg>
+                        <p>Start a conversation! Ask me anything about the video content.</p>
                       </div>
-                    ))}
+                    ) : (
+                      chatMessages.map((message, index) => (
+                        <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                          <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                            message.type === 'user'
+                              ? 'bg-pink-500 text-white'
+                              : 'bg-white text-gray-900 border border-gray-200'
+                          }`}>
+                            <p className="text-sm">{message.content}</p>
+                            <p className={`text-xs mt-1 ${message.type === 'user' ? 'text-pink-200' : 'text-gray-500'}`}>
+                              {message.timestamp}
+                            </p>
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </div>
 
                   {/* Chat Input */}
@@ -796,7 +726,7 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
                         onChange={(e) => setChatInput(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
                         placeholder="Ask me anything about the video content..."
-                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                        className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 bg-white"
                       />
                       <button
                         onClick={handleChatSend}
@@ -810,17 +740,19 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
                     </div>
                     
                     {/* Quick Questions */}
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <span className="text-sm text-gray-500">Quick questions:</span>
-                      {selectedDemo.features.chat.slice(0, 3).map((item, index) => (
-                        <button
-                          key={index}
-                          onClick={() => setChatInput(item.question)}
-                          className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors"
-                        >
-                          {item.question}
-                        </button>
-                      ))}
+                    <div className="mt-3">
+                      <p className="text-sm text-gray-600 mb-2">Quick questions:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedDemo.features.chat.map((item, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setChatInput(item.question)}
+                            className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors"
+                          >
+                            {item.question}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -832,3 +764,4 @@ export default function UseCaseGallery({ onBack }: { onBack: () => void }) {
     </div>
   );
 }
+

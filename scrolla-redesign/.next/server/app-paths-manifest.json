@@ -1,9 +1,0 @@
-{
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/features/ai-tutor/page": "app/features/ai-tutor/page.js",
-  "/page": "app/page.js",
-  "/features/smart-notes/page": "app/features/smart-notes/page.js",
-  "/features/knowledge-quest/page": "app/features/knowledge-quest/page.js",
-  "/features/visual-search/page": "app/features/visual-search/page.js"
-}
