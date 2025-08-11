@@ -37,6 +37,30 @@
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/features/ai-tutor",
+      "regex": "^/features/ai\\-tutor(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/features/ai\\-tutor(?:/)?$"
+    },
+    {
+      "page": "/features/knowledge-quest",
+      "regex": "^/features/knowledge\\-quest(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/features/knowledge\\-quest(?:/)?$"
+    },
+    {
+      "page": "/features/smart-notes",
+      "regex": "^/features/smart\\-notes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/features/smart\\-notes(?:/)?$"
+    },
+    {
+      "page": "/features/visual-search",
+      "regex": "^/features/visual\\-search(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/features/visual\\-search(?:/)?$"
     }
   ],
   "dataRoutes": [],

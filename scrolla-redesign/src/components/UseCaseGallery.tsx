@@ -205,7 +205,39 @@ export function UseCaseGallery({ onBack }: UseCaseGalleryProps) {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{demo.title}</h3>
                   <p className="text-gray-600 mb-3">{demo.description}</p>
-                  <p className="text-sm font-medium text-blue-600">{demo.videoTitle}</p>
+                  <p className="text-sm font-medium text-blue-600 mb-3">{demo.videoTitle}</p>
+                  
+                  {/* Video Thumbnail Preview */}
+                  <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                    {demo.id === 'neural-networks' ? (
+                      <img
+                        src="https://img.youtube.com/vi/aircAruvnKk/maxresdefault.jpg"
+                        alt="Neural Networks Video Thumbnail"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/400x225/3B82F6/FFFFFF?text=Neural+Networks';
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src="https://img.youtube.com/vi/nIoOv6lWYnk/maxresdefault.jpg"
+                        alt="Sushi Making Video Thumbnail"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://via.placeholder.com/400x225/10B981/FFFFFF?text=Sushi+Making';
+                        }}
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                        <svg className="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </button>
@@ -224,6 +256,48 @@ export function UseCaseGallery({ onBack }: UseCaseGalleryProps) {
                 <h2 className="text-white text-lg font-semibold">{selectedDemo.videoTitle}</h2>
                 <p className="text-gray-300 text-sm">AI-powered learning experience</p>
               </div>
+            </div>
+          </div>
+
+          {/* Video Preview Section */}
+          <div className="p-6 bg-gray-50 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Video Preview</h3>
+            <div className="aspect-video bg-gray-900 rounded-xl overflow-hidden">
+              {selectedDemo.id === 'neural-networks' ? (
+                <iframe
+                  src="https://www.youtube.com/embed/aircAruvnKk?modestbranding=1&rel=0&showinfo=0"
+                  title="Neural Networks - 3Blue1Brown"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <iframe
+                  src="https://www.youtube.com/embed/nIoOv6lWYnk?modestbranding=1&rel=0&showinfo=0"
+                  title="Sushi Making - Epicurious"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-sm text-gray-600">
+                This is the actual video content that Scrolla analyzes and transforms into interactive learning materials
+              </p>
+              <a
+                href={selectedDemo.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600 text-sm font-medium flex items-center space-x-1"
+              >
+                <span>Watch Full Video</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </div>
           </div>
 
