@@ -53,7 +53,7 @@ export default function Home() {
         </div>
         <div className="flex items-center space-x-6">
           <a href="#features" className="text-gray-600 hover:text-gray-900 transition-colors">Features</a>
-          <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition-colors">Pricing</a>
+          <a href="#use-cases" className="text-gray-600 hover:text-gray-900 transition-colors">Use Cases</a>
           <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
             Get Started
           </button>
@@ -117,16 +117,16 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Study Clips */}
+            {/* Knowledge Quest */}
             <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Study Clips</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Knowledge Quest</h3>
               <p className="text-gray-600 leading-relaxed">
-                AI creates 15-30s study videos with captions and narration
+                Interactive quizzes and challenges to test your understanding and earn points
               </p>
             </div>
 
@@ -141,6 +141,72 @@ export default function Home() {
               <p className="text-gray-600 leading-relaxed">
                 Ask questions about the video content like talking to a personal tutor
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Use Case Gallery Section */}
+        <div id="use-cases" className="mb-20">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+            See Scrolla in Action
+          </h2>
+          <p className="text-lg text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+            Discover how students and educators are transforming their learning experience
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Use Case 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center">
+                <div className="text-center">
+                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm text-gray-500">Video Preview</p>
+                </div>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">3Blue1Brown - Neural Networks</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                A student uses Scrolla to break down complex neural network concepts from 3Blue1Brown's educational videos, creating interactive study materials.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-500">Mathematics • Machine Learning</span>
+                <a 
+                  href="https://www.youtube.com/watch?time_continue=1&v=aircAruvnKk&embeds_referring_euri=https%3A%2F%2Fmemories.ai%2F&embeds_referring_origin=https%3A%2F%2Fmemories.ai&source_ve_path=MjM4NTE" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-600 text-sm font-medium"
+                >
+                  Watch Original →
+                </a>
+              </div>
+            </div>
+
+            {/* Use Case 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+              <div className="aspect-video bg-gray-100 rounded-xl mb-6 flex items-center justify-center">
+                <div className="text-center">
+                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm text-gray-500">Video Preview</p>
+                </div>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">MIT OpenCourseWare - Physics</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                An educator transforms MIT's physics lectures into interactive learning modules with AI-generated quizzes and personalized study paths.
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-500">Physics • Higher Education</span>
+                <a 
+                  href="https://www.youtube.com/watch?v=nIoOv6lWYnk&embeds_referring_euri=https%3A%2F%2Fmemories.ai%2F&embeds_referring_origin=https%3A%2F%2Fmemories.ai&source_ve_path=MjM4NTE" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-600 text-sm font-medium"
+                >
+                  Watch Original →
+                </a>
+              </div>
             </div>
           </div>
         </div>

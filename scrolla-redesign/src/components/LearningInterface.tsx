@@ -125,9 +125,9 @@ export function LearningInterface({ video }: LearningInterfaceProps) {
                   }`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
-                  <span>Study Clips</span>
+                  <span>Knowledge Quest</span>
                 </button>
               </div>
 
@@ -194,13 +194,75 @@ export function LearningInterface({ video }: LearningInterfaceProps) {
                 {activeTab === 'clips' && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-xl font-semibold text-gray-900">Study Clips</h2>
-                      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-                        Generate More
+                      <h2 className="text-xl font-semibold text-gray-900">Knowledge Quest</h2>
+                      <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                        Start Quiz
                       </button>
                     </div>
-                    <div className="text-center py-8 text-gray-500">
-                      AI-generated study clips will appear here
+                    
+                    {/* Quiz Progress */}
+                    <div className="bg-green-50 border border-green-200 rounded-xl p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-lg font-semibold text-green-900">Current Progress</h3>
+                        <span className="text-sm text-green-600 font-medium">3/10 Questions</span>
+                      </div>
+                      <div className="w-full bg-green-200 rounded-full h-2">
+                        <div className="bg-green-500 h-2 rounded-full" style={{ width: '30%' }}></div>
+                      </div>
+                      <p className="text-sm text-green-700 mt-2">Keep going! You're doing great!</p>
+                    </div>
+
+                    {/* Sample Quiz Question */}
+                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                      <div className="flex items-center space-x-2 mb-4">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">Question 4</span>
+                        <span className="text-sm text-gray-500">Wave-Particle Duality</span>
+                      </div>
+                      <h4 className="text-lg font-medium text-gray-900 mb-4">
+                        What happens when you observe a photon in the double-slit experiment?
+                      </h4>
+                      <div className="space-y-3">
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                          A) It always behaves as a wave
+                        </button>
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                          B) It always behaves as a particle
+                        </button>
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                          C) It collapses to one behavior based on observation
+                        </button>
+                        <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition-colors">
+                          D) It creates interference patterns
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Leaderboard */}
+                    <div className="bg-gray-50 rounded-xl p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-4">Leaderboard</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center text-sm font-bold text-white">1</div>
+                            <span className="font-medium text-gray-900">You</span>
+                          </div>
+                          <span className="text-green-600 font-semibold">850 pts</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm font-bold text-white">2</div>
+                            <span className="font-medium text-gray-900">Alex Chen</span>
+                          </div>
+                          <span className="text-blue-600 font-semibold">720 pts</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-sm font-bold text-white">3</div>
+                            <span className="font-medium text-gray-900">Sarah Kim</span>
+                          </div>
+                          <span className="text-purple-600 font-semibold">680 pts</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
