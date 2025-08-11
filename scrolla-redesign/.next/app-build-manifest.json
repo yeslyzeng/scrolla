@@ -12,22 +12,15 @@
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-540481dc452dbf61.js",
       "static/chunks/main-app-5d25a0304147dfe5.js",
-      "static/css/da4af43a8e2a5fbc.css",
+      "static/css/e250eae18f6b5dc1.css",
       "static/chunks/app/layout-4173736fec0f81bb.js"
     ],
-    "/features/ai-tutor/page": [
+    "/page": [
       "static/chunks/webpack-ffbc15395550cd4e.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-540481dc452dbf61.js",
       "static/chunks/main-app-5d25a0304147dfe5.js",
-      "static/chunks/app/features/ai-tutor/page-54c0ad510a262e42.js"
-    ],
-    "/features/smart-notes/page": [
-      "static/chunks/webpack-ffbc15395550cd4e.js",
-      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
-      "static/chunks/964-540481dc452dbf61.js",
-      "static/chunks/main-app-5d25a0304147dfe5.js",
-      "static/chunks/app/features/smart-notes/page-8b94733ff52772be.js"
+      "static/chunks/app/page-d89a40f6c566677d.js"
     ],
     "/features/knowledge-quest/page": [
       "static/chunks/webpack-ffbc15395550cd4e.js",
@@ -36,6 +29,13 @@
       "static/chunks/main-app-5d25a0304147dfe5.js",
       "static/chunks/app/features/knowledge-quest/page-83aa9c201546f6bb.js"
     ],
+    "/features/smart-notes/page": [
+      "static/chunks/webpack-ffbc15395550cd4e.js",
+      "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
+      "static/chunks/964-540481dc452dbf61.js",
+      "static/chunks/main-app-5d25a0304147dfe5.js",
+      "static/chunks/app/features/smart-notes/page-8b94733ff52772be.js"
+    ],
     "/features/visual-search/page": [
       "static/chunks/webpack-ffbc15395550cd4e.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
@@ -43,12 +43,12 @@
       "static/chunks/main-app-5d25a0304147dfe5.js",
       "static/chunks/app/features/visual-search/page-6b034dcc65d986e0.js"
     ],
-    "/page": [
+    "/features/ai-tutor/page": [
       "static/chunks/webpack-ffbc15395550cd4e.js",
       "static/chunks/4bd1b696-cf72ae8a39fa05aa.js",
       "static/chunks/964-540481dc452dbf61.js",
       "static/chunks/main-app-5d25a0304147dfe5.js",
-      "static/chunks/app/page-d89a40f6c566677d.js"
+      "static/chunks/app/features/ai-tutor/page-54c0ad510a262e42.js"
     ]
   }
 }
